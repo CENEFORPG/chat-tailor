@@ -1,7 +1,7 @@
   {
   "id": "sch-customize",
   "name": "sch-customize",
-  "title": "sch-customize",
+  "title": "[수정판] sch-customize (v13·색상제거·OOC)",
   "description": "customizing (CENEFORPG fork: v13 호환, 잡담 유저색상 제거 + 항상 OOC)",
   "version": "1.0.5",
   "compatibility": {
