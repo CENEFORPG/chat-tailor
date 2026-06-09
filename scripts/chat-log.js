@@ -44,7 +44,7 @@ async function generateSimpleHtmlFromChats(chats){
   let prevSpeaker;
   const includeWhisperFlag = game.settings.get("sch-customize", "includeWhisper");
   for (const chat of chats) {
-    let whisperFlag = chat?.type === CONST.CHAT_MESSAGE_TYPES.WHISPER;
+    let whisperFlag = (chat?.whisper?.length ?? 0) > 0; // [CENEFORPG fork] v13: CHAT_MESSAGE_TYPES.WHISPER 제거 → whisper 배열로 판정
     if(whisperFlag){
       if(!includeWhisperFlag || !chat.isContentVisible)
         continue;
@@ -99,7 +99,7 @@ async function generateHtmlFromChats(chats) {
   let prevSpeaker;
   const includeWhisperFlag = game.settings.get("sch-customize", "includeWhisper");
   for (const chat of chats) {
-    let whisperFlag = chat?.type === CONST.CHAT_MESSAGE_TYPES.WHISPER;
+    let whisperFlag = (chat?.whisper?.length ?? 0) > 0; // [CENEFORPG fork] v13: CHAT_MESSAGE_TYPES.WHISPER 제거 → whisper 배열로 판정
     if(whisperFlag){
       if(!includeWhisperFlag || !chat.isContentVisible)
         continue;
@@ -146,7 +146,7 @@ function appendChatContents(chat, chatMergeFlag, prevPtFlag, whisperFlag, contai
   const {type, rolls, flags, user } = chat;
   let speaker = chat.alias;
 
-  const text = type === 5 && rolls.length > 0 ? getRollResultContent(chat) : chat.content;
+  const text = (rolls && rolls.length > 0) ? getRollResultContent(chat) : chat.content; // [CENEFORPG fork] v13: type===5(ROLL) 대신 rolls 배열로 판정
   const imageUrl = getChatImageUrl(chat);
   const privTalkFlag = flags?.priv_talk || chat.getFlag('sch-customize', 'priv_talk') || false;
   if(prevPtFlag !== privTalkFlag)

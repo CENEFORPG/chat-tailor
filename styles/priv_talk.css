@@ -2,44 +2,33 @@
   --priv-talk-font-color: ;
   --priv-talk-font-size: ;
   --priv-talk-margin-left: ;
-  --priv-talk-bg-brightness: ;
   --sch-cus-chat-font-size: 14px;
 }
 
-li.chat-message.message.flexcol.priv_talk {
+/* [CENEFORPG fork] v13 대응: v11 전용 클래스(li.chat-message.message.flexcol) 대신
+   JS에서 직접 붙이는 .priv_talk 를 기준으로 선택. 유저별 색상 배경/밝기 오버레이는 제거. */
+
+.chat-message.priv_talk {
   border: none;
   margin-left: var(--priv-talk-margin-left);
   padding: 5px;
   position: relative;
 }
 
-li.chat-message.message.flexcol.priv_talk::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  opacity:var(--priv-talk-bg-brightness);
-  pointer-events: none;
-  z-index: 0;
-}
-
-li.chat-message.message.flexcol.priv_talk > * {
+.chat-message.priv_talk > * {
   position: relative;
   z-index: 1;
 }
-li.chat-message.message.flexcol.priv_talk > div.message-content>:not(div.pt) {
-  display:none;
+
+.chat-message.priv_talk .message-content > :not(div.pt) {
+  display: none;
 }
 
-li.chat-message.message.flexcol > div.message-content {
+.chat-message .message-content {
   font-size: var(--sch-cus-chat-font-size);
 }
 
-
-li.chat-message.message.flexcol.priv_talk > div.message-content {
+.chat-message.priv_talk .message-content {
   color: var(--priv-talk-font-color);
   font-size: var(--priv-talk-font-size);
   padding: 0;
@@ -54,20 +43,18 @@ li.chat-message.message.flexcol.priv_talk > div.message-content {
   grid-template-columns: 2fr 5fr;
 }
 
-li.chat-message.message.flexcol.priv_talk.top {
+.chat-message.priv_talk.top {
   margin-bottom: 0;
   border-radius: 5px 5px 0 0;
 }
 
-li.chat-message.message.flexcol.priv_talk.middle {
+.chat-message.priv_talk.middle {
   margin-bottom: 0;
   margin-top: 0;
   border-radius: 0;
 }
 
-li.chat-message.message.flexcol.priv_talk.end {
+.chat-message.priv_talk.end {
   margin-top: 0;
   border-radius: 0 0 5px 5px;
 }
-
-
