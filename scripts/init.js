@@ -98,7 +98,7 @@ Hooks.once('init', () => {
   game.settings.register("sch-customize", "hideWhisper", {
     name: "채팅 로그 귓속말 숨김",
     hint: "채팅 로그의 귓속말을 가립니다. 회색 배경으로 표시되며 클릭 시 텍스트가 표시됩니다.",
-    scope: "client",
+    scope: "world",
     config: true,
     default: false,
     type: Boolean,
@@ -122,7 +122,7 @@ Hooks.once('init', () => {
   game.settings.register("sch-customize", "customPrivTalkAlias", {
     name: "잡담 시작을 위한 문자 지정",
     hint: "잡담으로 발언할 때 처음으로 타이핑 하는 커스텀 문자를 등록합니다. 입력한 문자는 다른 모듈과 중복, 마크다운 옵션 등의 이유로 사용이 불가능 할 수 있습니다. 기본 옵션인 '/pt', '!', '`'는 유지됩니다.",
-    scope: "client",
+    scope: "world",
     config: true,
     default: "/p",
     type: String,
@@ -133,7 +133,7 @@ Hooks.once('init', () => {
   game.settings.register("sch-customize", "markdownDelUse", {
     name: "잡담에 마크다운 취소선 적용 여부",
     hint: "채팅에 마크다운을 적용 시, 잡담 중 ~로 감싸인 문자를 취소선으로 표시합니다.",
-    scope: "client",
+    scope: "world",
     config: true,
     default: false,
     type: Boolean,
@@ -145,7 +145,7 @@ Hooks.once('init', () => {
   game.settings.register("sch-customize", "privTalkSpeakerLineChange", {
     name: "잡담 이름 표기 후 줄바꿈",
     hint: "잡담에서 플레이어 닉네임 표시 후 줄바꿈하고 메세지 내용을 표시합니다.",
-    scope: "client",
+    scope: "world",
     config: true,
     default: false,
     type: Boolean,
@@ -157,7 +157,7 @@ Hooks.once('init', () => {
     hint: '기본 채팅 글자 크기 조절(기본 14px)',
     config: true,
     type: Number,
-    scope: 'client',
+    scope: 'world',
     range: {
       min: 14,
       max: 30,
@@ -173,7 +173,7 @@ Hooks.once('init', () => {
     hint: '잡담 글자 크기를 조절합니다.(기본 12px)',
     config: true,
     type: Number,
-    scope: 'client',
+    scope: 'world',
     range: {
       min: 10,
       max: 30,
@@ -188,7 +188,7 @@ Hooks.once('init', () => {
     hint: '잡담 글자 색상인 검정색의 진하기를 조절합니다.(기본 0.8)',
     config: true,
     type: Number,
-    scope: 'client',
+    scope: 'world',
     range: {
       min: 0,
       max: 1,
@@ -203,7 +203,7 @@ Hooks.once('init', () => {
     hint: '잡담 왼쪽으로 생기는 여백 간격을 조절합니다.(기본 10)',
     config: true,
     type: Number,
-    scope: 'client',
+    scope: 'world',
     range: {
       min: 0,
       max: 40,
