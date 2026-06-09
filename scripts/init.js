@@ -126,7 +126,7 @@ Hooks.once('init', () => {
     config: true,
     default: "/p",
     type: String,
-    onChange: _ => window.location.reload()
+    requiresReload: true // [CENEFORPG fork] world scope에서 즉시 reload()가 비동기 저장을 끊어 값이 복구되던 문제 → 저장 후 안전하게 리로드
   });
 
 
@@ -137,7 +137,7 @@ Hooks.once('init', () => {
     config: true,
     default: false,
     type: Boolean,
-    onChange: _ => window.location.reload()
+    requiresReload: true // [CENEFORPG fork] world scope에서 즉시 reload()가 비동기 저장을 끊어 값이 복구되던 문제 → 저장 후 안전하게 리로드
   });
 
   // [CENEFORPG fork] privTalkAsOOC 설정 제거 — 잡담은 항상 OOC로 고정.
@@ -149,7 +149,7 @@ Hooks.once('init', () => {
     config: true,
     default: false,
     type: Boolean,
-    onChange: _ => window.location.reload()
+    requiresReload: true // [CENEFORPG fork] world scope에서 즉시 reload()가 비동기 저장을 끊어 값이 복구되던 문제 → 저장 후 안전하게 리로드
   });
 
   game.settings.register("sch-customize", "setChatLogFontSize", {
