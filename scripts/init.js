@@ -164,7 +164,7 @@ Hooks.once('init', () => {
       step: 0.5
     },
     default: 14,
-    onChange: (value) => this.updateCssProperty('clFontSize', `${value}px`)
+    onChange: (value) => updateCssProperty('clFontSize', `${value}px`)
   });
 
 
@@ -180,7 +180,7 @@ Hooks.once('init', () => {
       step: 0.5
     },
     default: 12,
-    onChange: (value) => this.updateCssProperty('ptFontSize', `${value}px`)
+    onChange: (value) => updateCssProperty('ptFontSize', `${value}px`)
   });
 
   game.settings.register("sch-customize", "setPrivTalkFontOpacity", {
@@ -195,7 +195,7 @@ Hooks.once('init', () => {
       step: 0.05
     },
     default: 0.8,
-    onChange: (value) => this.updateCssProperty('fontColor', `rgba(0,0,0,${value})`)
+    onChange: (value) => updateCssProperty('fontColor', `rgba(0,0,0,${value})`)
   });
 
   game.settings.register("sch-customize", "setPrivTalkMarginLeft", {
@@ -210,17 +210,17 @@ Hooks.once('init', () => {
       step: 1
     },
     default: 10,
-    onChange: (value) => this.updateCssProperty('marginLeft', `${value}px`)
+    onChange: (value) => updateCssProperty('marginLeft', `${value}px`)
   });
 
   // [CENEFORPG fork] setPrivTalkBgBrightness 설정 제거 — 유저 색상 배경을 없앴으므로 밝기 조절도 불필요.
 
 
-  this.updateCssProperty('fontColor', `rgba(0,0,0,${(game.settings.get("sch-customize", "setPrivTalkFontOpacity"))})` );
-  this.updateCssProperty('clFontSize',`${game.settings.get("sch-customize", "setChatLogFontSize")}px`);
-  this.updateCssProperty('ptFontSize',`${game.settings.get("sch-customize", "setPrivTalkFontSize")}px`);
-  this.updateCssProperty('marginLeft',`${game.settings.get("sch-customize", "setPrivTalkMarginLeft")}px`);
+  applyCssSettings();
 });
+
+// [CENEFORPG fork] world 설정 값이 모두 로드된 ready 시점에도 다시 적용(init 타이밍 안전장치).
+Hooks.once('ready', () => applyCssSettings());
 
 const cssProperty = {
   ptFontSize : '--priv-talk-font-size',
@@ -234,5 +234,13 @@ const cssProperty = {
 function updateCssProperty(property,value){
   if(value)
     document.querySelector(':root').style.setProperty(cssProperty[property], value);
+}
+
+// [CENEFORPG fork] CSS 관련 설정값을 한 번에 :root 변수로 반영. (init / ready / 각 설정 onChange 공용)
+function applyCssSettings(){
+  updateCssProperty('fontColor', `rgba(0,0,0,${game.settings.get("sch-customize", "setPrivTalkFontOpacity")})`);
+  updateCssProperty('clFontSize', `${game.settings.get("sch-customize", "setChatLogFontSize")}px`);
+  updateCssProperty('ptFontSize', `${game.settings.get("sch-customize", "setPrivTalkFontSize")}px`);
+  updateCssProperty('marginLeft', `${game.settings.get("sch-customize", "setPrivTalkMarginLeft")}px`);
 }
 // [CENEFORPG fork] setUserColorBg() 제거 — 잡담 유저별 색상 배경을 더 이상 주입하지 않음.
