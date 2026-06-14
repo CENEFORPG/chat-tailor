@@ -5,33 +5,34 @@
   --sch-cus-chat-font-size: 14px;
 }
 
-/* [CENEFORPG fork] v13 대응: v11 전용 클래스(li.chat-message.message.flexcol) 대신
-   JS에서 직접 붙이는 .priv_talk 를 기준으로 선택. 유저별 색상 배경/밝기 오버레이는 제거. */
+/* [CENEFORPG fork] 선택자는 우리가 직접 붙이는 .priv_talk 기준.
+   v13의 dnd5e2 시스템 채팅 테마가 글자 크기/색을 더 높은 우선순위로 덮어쓰므로,
+   잡담의 시각 속성에는 !important 로 우선순위를 확보한다. */
 
-.chat-message.priv_talk {
+.priv_talk {
   border: none;
-  margin-left: var(--priv-talk-margin-left);
+  margin-left: var(--priv-talk-margin-left) !important;
   padding: 5px;
   position: relative;
 }
 
-.chat-message.priv_talk > * {
+.priv_talk > * {
   position: relative;
   z-index: 1;
 }
 
-.chat-message.priv_talk .message-content > :not(div.pt) {
+.priv_talk .message-content > :not(div.pt) {
   display: none;
 }
 
-.chat-message .message-content {
-  font-size: var(--sch-cus-chat-font-size);
+.priv_talk .message-content {
+  padding: 0;
 }
 
-.chat-message.priv_talk .message-content {
-  color: var(--priv-talk-font-color);
-  font-size: var(--priv-talk-font-size);
-  padding: 0;
+/* 실제 텍스트(이름/메시지)는 .pt 안에 있으므로 여기에 직접 크기·색을 강제한다 */
+.priv_talk .pt {
+  color: var(--priv-talk-font-color) !important;
+  font-size: var(--priv-talk-font-size) !important;
 }
 
 .priv_user {
@@ -43,18 +44,23 @@
   grid-template-columns: 2fr 5fr;
 }
 
-.chat-message.priv_talk.top {
+.priv_talk.top {
   margin-bottom: 0;
   border-radius: 5px 5px 0 0;
 }
 
-.chat-message.priv_talk.middle {
+.priv_talk.middle {
   margin-bottom: 0;
   margin-top: 0;
   border-radius: 0;
 }
 
-.chat-message.priv_talk.end {
+.priv_talk.end {
   margin-top: 0;
   border-radius: 0 0 5px 5px;
+}
+
+/* 기본 채팅 글자 크기 (모든 메시지). 시스템 테마와 충돌 시 제한될 수 있음. */
+.chat-message .message-content {
+  font-size: var(--sch-cus-chat-font-size);
 }
