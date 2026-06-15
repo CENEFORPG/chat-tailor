@@ -41,7 +41,8 @@
 
 .priv_talk.line-change .message-content {
   display: grid;
-  grid-template-columns: 2fr 5fr;
+  grid-template-columns: max-content 1fr; /* [CENEFORPG fork] 이름 칸을 글자폭에 맞춰 이름~내용 간격 축소 (기존 2fr 5fr) */
+  column-gap: 8px;
 }
 
 .priv_talk.top {
