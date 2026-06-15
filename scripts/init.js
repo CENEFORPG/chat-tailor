@@ -17,7 +17,10 @@ Hooks.once("setup", function () {
         parameters = parameters.replace(/<\s*\/?\s*del\s*>/g, '~');
 
       const speakUser = (messageData.user instanceof User ? messageData.user : game.users.get(messageData.user));
-      messageData.speaker.actor = speakUser.id;
+      // [CENEFORPG fork] 깨끗한 OOC 화자로 설정. (원래 actor 필드에 '유저 id'를 넣어, 시스템이 화자를
+      // 캐릭터 기준으로 재계산해 alias가 캐릭터 이름으로 덮어써지던 문제가 있었음 → actor/token 비움)
+      messageData.speaker.scene = null;
+      messageData.speaker.actor = null;
       messageData.speaker.token = null;
       messageData.speaker.alias = speakUser.name;
       // [CENEFORPG fork] 잡담은 항상 OOC로 생성. (v13: type → style, CHAT_MESSAGE_TYPES → CHAT_MESSAGE_STYLES)
@@ -61,7 +64,9 @@ Hooks.on("renderChatMessageHTML", (message, html, context) => {
     const header = html.querySelector('header');
     if (header) header.style.display = "none";
     const content = html.querySelector('.message-content');
-    if (content) content.innerHTML = `<div class="pt priv_user">${message.speaker.alias}</div> <div class="pt">${message.content}</div>`;
+    // [CENEFORPG fork] 잡담은 OOC이므로 화자 이름은 메시지 작성자(플레이어) 기준. speaker.alias가 캐릭터로 덮어써져도 플레이어 이름이 나오게.
+    const ptName = message.author?.name ?? message.speaker?.alias ?? "";
+    if (content) content.innerHTML = `<div class="pt priv_user">${ptName}</div> <div class="pt">${message.content}</div>`;
     if (!game.settings.get("sch-customize", "privTalkSpeakerLineChange"))
       html.classList.add('line-change');
   }

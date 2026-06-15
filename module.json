@@ -3,7 +3,7 @@
   "name": "sch-customize",
   "title": "sch-customize_cf",
   "description": "customizing (CENEFORPG fork: v13 호환, 잡담 유저색상 제거 + 항상 OOC)",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "compatibility": {
     "minimum": "13",
     "verified": "13"
